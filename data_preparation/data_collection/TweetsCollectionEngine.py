@@ -60,10 +60,11 @@ class TweetsCollectionEngine(BaseEngine):
         if _start_time is None:
             _start_time = self.get_time_latest_tweet_on_db(userid)
         _tweets_list = []
-        for status in tweepy.Paginator(_client.get_users_tweets, id=userid, max_results=5, limit=5,
+        for status in tweepy.Paginator(_client.get_users_tweets, id=userid, max_results=100, limit=32,
                                        tweet_fields=config.TWEET_FIELDS, start_time=_start_time):
-            for i in status.data:
-                _tweets_list.append(i)
+            if status.data is not None:
+                for i in status.data:
+                    _tweets_list.append(i)
         return _tweets_list[1:]
 
     def insert_new_tweets_by_user(self, userid, _start_time=None):
