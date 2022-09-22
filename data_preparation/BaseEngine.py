@@ -29,6 +29,16 @@ class BaseEngine:
     def get_user_id(self, screen_name):
         return self.api_client.get_user(username=screen_name).data.id
 
+    def get_tweets_by_user_on_db(self, userid, start_time, end_time):
+        q = {
+            'author_id': userid,
+            'created_at': {
+                '$gte': start_time,
+                '$lt': end_time
+            }
+        }
+        return self.col_raw_tweets.find(q)
+
     @staticmethod
     def convert_tweepy_object_to_dict(t):
         refer_tweets = []
