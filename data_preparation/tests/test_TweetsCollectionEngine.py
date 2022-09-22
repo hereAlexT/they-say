@@ -2,10 +2,10 @@ import datetime
 
 from BaseEngine import BaseEngine
 
-from data_collection.TweetsCollectionEngine import TweetsCollectionEngine
+from data_collection.TweetCollectionEngine import TweetCollectionEngine
 from pprint import pprint
 
-tce = TweetsCollectionEngine()
+tce = TweetCollectionEngine()
 
 
 def test_get_latest_tweet_on_db():

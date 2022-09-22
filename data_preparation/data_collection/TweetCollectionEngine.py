@@ -8,7 +8,7 @@ import logging
 BEARER_TOKEN = os.environ.get("BEARER_TOKEN")
 
 
-class TweetsCollectionEngine(BaseEngine):
+class TweetCollectionEngine(BaseEngine):
 
     def __init__(self):
         super().__init__()
