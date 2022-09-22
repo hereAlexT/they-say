@@ -47,7 +47,7 @@ class TweetProcessingEngine(BaseEngine):
             # remove emoji
             new_token = []
             for i in token:
-                if i not in EMOJI_DATA:
+                if i not in EMOJI_DATA and i[0] != '@':
                     new_token.append(i)
             token = new_token
 
@@ -86,16 +86,21 @@ class TweetProcessingEngine(BaseEngine):
                                                              'hash': 1}))
         s_time = time.time()
         freq_words_l = self._cal_freq(res, attr_name='words_list')
+
         freq_at_l = self._cal_freq(res, attr_name='at')
         freq_emoji_l = self._cal_freq(res, attr_name='emoji')
         freq_hash_l = self._cal_freq(res, attr_name='hash')
 
         e_time = time.time()
         print(f"timecost = {e_time - s_time}\n len(res)={len(res)}")
-        # print(freq_words_l)
-        # print(freq_at_l)
-        # print(freq_hash_l)
-        # print(freq_emoji_l)
+        freq_words_l = sorted(freq_words_l.items(), key=lambda x: x[1])
+        freq_at_l = sorted(freq_at_l.items(), key=lambda x: x[1])
+        freq_hash_l = sorted(freq_hash_l.items(), key=lambda x: x[1])
+        freq_emoji_l = sorted(freq_emoji_l.items(), key=lambda x: x[1])
+        print(freq_words_l)
+        print(freq_at_l)
+        print(freq_hash_l)
+        print(freq_emoji_l)
         return freq_words_l, freq_at_l, freq_emoji_l, freq_hash_l
 
 

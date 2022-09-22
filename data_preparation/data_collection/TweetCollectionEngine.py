@@ -1,3 +1,5 @@
+import datetime
+
 import os
 import tweepy
 from BaseEngine import BaseEngine
@@ -40,7 +42,12 @@ class TweetCollectionEngine(BaseEngine):
                      }.items())
         _limit = 1
 
-        return list(self.get_col_raw_tweets().find(filter=_filter, sort=_sort, limit=_limit))[0]['created_at']
+        res = list(self.get_col_raw_tweets().find(filter=_filter, sort=_sort, limit=_limit))
+
+        if len(res) > 0:
+            return res[0]['created_at']
+        else:
+            return None
 
     def get_new_tweets_by_user(self, userid, _start_time=None):
         """
@@ -48,16 +55,25 @@ class TweetCollectionEngine(BaseEngine):
         :param _start_time:
         :return: [<tweet1>, <tweet2>]
         """
+        totally_new_flag = False
         _client = self.get_api_client()
         if _start_time is None:
             _start_time = self.get_time_latest_tweet_on_db(userid)
+            print(_start_time)
+            if _start_time is None:
+                # grab the latest 3200 tweets
+                _start_time = datetime.datetime(2011, 11, 6, 1, 1, 1)
+                totally_new_flag = True
         _tweets_list = []
-        for status in tweepy.Paginator(_client.get_users_tweets, id=userid, max_results=100, limit=32,
+        for status in tweepy.Paginator(_client.get_users_tweets, id=userid, max_results=5, limit=1,
                                        tweet_fields=config.TWEET_FIELDS, start_time=_start_time):
             if status.data is not None:
                 for i in status.data:
                     _tweets_list.append(i)
-        return _tweets_list[1:]
+        if totally_new_flag is True:
+            return _tweets_list
+        else:
+            return _tweets_list[:-1]
 
     def insert_new_tweets_by_user(self, userid, _start_time=None):
         logging.info(f"Insert New Tweets [userid = {userid}]")
@@ -66,12 +82,8 @@ class TweetCollectionEngine(BaseEngine):
         count = 0
         for i in _insert_list:
             i = BaseEngine.convert_tweepy_object_to_dict(i)
-            print(type(i))
+            print(i)
             count += 1
             _col.insert_one(i)
         logging.info(f"Length of updated_list: {len(_insert_list)}, insert {count} entries.")
         return _insert_list
-
-
-
-
