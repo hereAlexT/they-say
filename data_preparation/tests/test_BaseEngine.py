@@ -24,3 +24,7 @@ def test_get_tweets_by_user_on_db():
     start_time = datetime.datetime(1999, 1, 1, 1, 1, 1)
     re = be.get_tweets_by_user_on_db(44196397, start_time, end_time)
     assert len(list(re)) == 5
+
+def test_get_distinct_user_on_db():
+    a = be.get_distinct_users_on_db()
+    print(a)

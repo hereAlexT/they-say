@@ -1,1 +1,4 @@
 tweepy
+spacy
+pytest
+pymongo

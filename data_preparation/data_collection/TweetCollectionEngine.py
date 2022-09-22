@@ -42,13 +42,6 @@ class TweetCollectionEngine(BaseEngine):
 
         return list(self.get_col_raw_tweets().find(filter=_filter, sort=_sort, limit=_limit))[0]['created_at']
 
-    def get_all_users_on_db(self) -> list:
-        """
-        :return: A list, that contain the userid of all users on db. e.g. [12434, 23123, 34324]
-        """
-        # todo get distinct user_id from db
-        pass
-
     def get_new_tweets_by_user(self, userid, _start_time=None):
         """
         :param userid:
