@@ -1,4 +1,5 @@
 from data_processing.TweetProcessingEngine import TweetProcessingEngine
+from data_collection.TweetCollectionEngine import TweetCollectionEngine
 import sys, getopt
 
 
@@ -10,6 +11,14 @@ def main(argv):
             userid_list = tpe.get_distinct_users_on_db()
             for u in userid_list:
                 tpe.begin_process(u)
+                
+    elif argv[0] == "update_tweet":
+        if argv[1] == 'all':
+            """python3 main.py update_tweet all"""
+            tce = TweetCollectionEngine()
+            userid_list = tce.get_distinct_users_on_db()
+            for u in userid_list:
+                tce.insert_new_tweets_by_user(u)
 
 
 if __name__ == '__main__':
