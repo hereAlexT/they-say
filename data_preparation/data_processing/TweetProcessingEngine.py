@@ -92,7 +92,10 @@ class TweetProcessingEngine(BaseEngine):
 
         e_time = time.time()
         print(f"timecost = {e_time - s_time}\n len(res)={len(res)}")
-
+        # print(freq_words_l)
+        # print(freq_at_l)
+        # print(freq_hash_l)
+        # print(freq_emoji_l)
         return freq_words_l, freq_at_l, freq_emoji_l, freq_hash_l
 
 
