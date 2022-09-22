@@ -3,6 +3,7 @@ import config
 import spacy
 from collections import Counter
 import re
+from emoji import EMOJI_DATA
 
 
 class WordFrequencyEngine(Processing):
@@ -50,4 +51,10 @@ class WordFrequencyEngine(Processing):
         hash_at = "\s([#][\w_-]+)"
         at_l = re.findall(re_at, text)
         hash_l = re.findall(hash_at, text)
-        return at_l, hash_l
+
+        emoji_l = []
+        for i in text:
+            if i in EMOJI_DATA:
+                emoji_l.append(i)
+
+        return at_l, hash_l, emoji_l

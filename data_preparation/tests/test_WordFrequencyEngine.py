@@ -1,3 +1,5 @@
+import datetime
+
 import pytest
 
 from data_processing.TweetProcessingEngine import TweetProcessingEngine
@@ -33,11 +35,23 @@ def test_spacy_token():
 def test_get_at_user():
     test_str = """
 I like #nylas but I don't like to go to this apple.com?a#url. I also don't like the ### comment blocks. But #msft is cool. #really, sd 
-@Hello how are @you doing @my_friend, email @000 me @ whats.up@example.com @shahmirj"""
-    at_l, hash_l = wfe.get_at_user(test_str)
+@Hello how are @you doing @my_friend, email @000 me @ whats.up@example.com @shahmirj
+🇧🇫 🇧🇮 🇰🇭 🇨🇲 🇨🇦 🇮🇨 🇨🇻 🇧🇶 🇰🇾 🇨🇫 🇹🇩 🇨🇱 🇨🇳 🇨🇽 🇨🇨
+😁😛😋🤣
+ 🌯 🥗 🥘🥫🍝🍜🍲🍛🍣🍱 
+"""
+    at_l, hash_l, emoji_l = wfe.get_at_n_hash(test_str)
+    assert set(emoji_l) == ("🇧🇫")
     assert set(at_l) == ("@Hello", "@you", "@my_friend", "@shahmirj")
     assert set(hash_l) == ("#nylas", "#msft", "#really")
 
 def test_begin_process():
     userid = 44196397
     tpe.begin_process(userid)
+
+def test_cal_freq():
+    userid = 44196397
+    start_date = datetime.datetime(1999,1,1,1,1,1)
+    end_date = datetime.datetime(9999,1,1,1,1,1)
+
+    tpe.cal_freq(userid, start_date, end_date)

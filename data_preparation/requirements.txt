@@ -2,3 +2,4 @@ tweepy
 spacy
 pytest
 pymongo
+emoji
