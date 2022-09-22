@@ -38,3 +38,21 @@ def test_get_new_tweets_by_user_2():
     userid = tce.get_user_id(screen_name=s_name)
     res = tce.get_new_tweets_by_user(userid, _start_time=time)
     pprint(res)
+
+# dangerous test !!!!!!!!!!!!!!!!!!
+# dangerous test !!!!!!!!!!!!!!!!!!
+# dangerous test !!!!!!!!!!!!!!!!!!
+# dangerous test !!!!!!!!!!!!!!!!!!
+# def test_insert_new_tweets_by_user():
+#     time = datetime.datetime.fromisoformat("2022-09-21T17:02:32.000+00:00")
+#     print(time)
+#     s_name = "elonmusk"
+#     userid = tce.get_user_id(screen_name=s_name)
+#     res = tce.insert_new_tweets_by_user(userid, _start_time=time)
+#     pprint(res)
+
+# def test_insert_new_tweets_by_user_2():
+#     s_name = "elonmusk"
+#     userid = tce.get_user_id(screen_name=s_name)
+#     res = tce.insert_new_tweets_by_user(userid)
+#     pprint(res)

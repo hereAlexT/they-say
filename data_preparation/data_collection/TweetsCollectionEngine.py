@@ -73,8 +73,13 @@ class TweetsCollectionEngine(BaseEngine):
         _col = self.get_col_raw_tweets()
         count = 0
         for i in _insert_list:
+            i = BaseEngine.convert_tweepy_object_to_dict(i)
+            print(type(i))
             count += 1
             _col.insert_one(i)
         logging.info(f"Length of updated_list: {len(_insert_list)}, insert {count} entries.")
+        return _insert_list
+
+
 
 
