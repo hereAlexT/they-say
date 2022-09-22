@@ -1,4 +1,3 @@
-import colorama.initialise
 import os
 import tweepy
 from BaseEngine import BaseEngine
