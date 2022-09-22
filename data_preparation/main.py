@@ -11,7 +11,7 @@ def main(argv):
             userid_list = tpe.get_distinct_users_on_db()
             for u in userid_list:
                 tpe.begin_process(u)
-                
+
     elif argv[0] == "update_tweet":
         if argv[1] == 'all':
             """python3 main.py update_tweet all"""
