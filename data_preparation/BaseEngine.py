@@ -1,3 +1,5 @@
+import re
+
 import os
 import tweepy
 import data_preparation.config as config
@@ -31,8 +33,18 @@ class BaseEngine:
         return self.api_client
 
     def get_user_id(self, screen_name):
-        if self.api_client.get_user(username=screen_name).data is not None:
-            return self.api_client.get_user(username=screen_name).data.id
+        if BaseEngine.screen_name_validation(screen_name):
+            if self.api_client.get_user(username=screen_name).data is not None:
+                return self.api_client.get_user(username=screen_name).data.id
+        else:
+            return None
+
+    def is_user_in_db(self, userid) -> bool:
+        db_distinct = self.get_distinct_users_on_db()
+        if userid in db_distinct:
+            return True
+        else:
+            return False
 
     def get_tweets_by_user_on_db(self, userid, start_time, end_time, projection=None):
         q = {
@@ -76,3 +88,10 @@ class BaseEngine:
         :return: A list, that contain the userid of all users on db. e.g. [12434, 23123, 34324]
         """
         return list(self.get_col_raw_tweets().distinct("author_id"))
+
+    @staticmethod
+    def screen_name_validation(screen_name) -> bool:
+        if len(re.findall("^[A-Za-z0-9_]{1,15}$", screen_name)) == 1:
+            return True
+        else:
+            return False

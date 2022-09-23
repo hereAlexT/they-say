@@ -80,10 +80,12 @@ class TweetProcessingEngine(BaseEngine):
         return method(target_s)
 
     def cal_freq(self, userid: int, start_time: datetime.datetime, end_time: datetime.datetime, choice: list):
+        print(f"st{start_time}")
         # fetch data
-        res = list(self.get_col_processed().find({'author_id': userid},
-                                                 projection={'_id': 0, 'id': 1, 'words_list': 1, 'at': 1, 'emoji': 1,
-                                                             'hash': 1}))
+        res = list(
+            self.get_col_processed().find({'author_id': userid, "created_at": {'$gte': start_time, "$lt": end_time}},
+                                          projection={'_id': 0, 'id': 1, 'words_list': 1, 'at': 1, 'emoji': 1,
+                                                      'hash': 1}))
         s_time = time.time()
         _d = {}
 
@@ -106,7 +108,7 @@ class TweetProcessingEngine(BaseEngine):
 
         e_time = time.time()
         print(f"timecost = {e_time - s_time}\n len(res)={len(res)}")
-        print(_d)
+        # print(_d)
         return _d
 
     @staticmethod
