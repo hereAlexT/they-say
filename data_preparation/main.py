@@ -12,9 +12,10 @@ def main(argv):
             userid_list = tpe.get_distinct_users_on_db()
             for u in userid_list:
                 tpe.begin_process(u)
-        elif argv[1] == "userid":
-            userid = int(argv[2])
-            input("Are you sure to begin_tweet_pre_processing for this user")
+        else:
+            """python3 main.py begin_tweet_pre_processing [user_id]"""
+            userid = int(argv[1])
+            input(f"Are you sure to begin_tweet_pre_processing for this user-> {userid}")
             tpe.begin_process(userid)
 
     elif argv[0] == "update_tweets":
@@ -25,7 +26,6 @@ def main(argv):
             for u in userid_list:
                 tce.insert_new_tweets_by_user(u)
         else:
-            print(-111)
             userid = argv[1]
             input(f'Your Request userid is {userid}, are you sure to continue?')
             tce.insert_new_tweets_by_user(int(userid))
