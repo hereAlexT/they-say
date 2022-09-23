@@ -1,4 +1,4 @@
-import config
+import data_preparation.config as config
 import logging
 
 

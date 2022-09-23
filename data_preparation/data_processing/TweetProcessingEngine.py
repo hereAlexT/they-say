@@ -1,11 +1,11 @@
-import config
-from BaseEngine import BaseEngine
+import data_preparation.config
+from data_preparation.BaseEngine import BaseEngine
 import datetime
 import time
-from data_processing.WordFrequencyEngine import WordFrequencyEngine
+from data_preparation.data_processing.WordFrequencyEngine import WordFrequencyEngine
 from emoji import EMOJI_DATA
 
-from my_logging import logger
+from data_preparation.my_logging import logger
 
 
 class TweetProcessingEngine(BaseEngine):

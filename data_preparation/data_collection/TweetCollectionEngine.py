@@ -2,8 +2,8 @@ import datetime
 
 import os
 import tweepy
-from BaseEngine import BaseEngine
-import config
+from data_preparation.BaseEngine import BaseEngine
+import data_preparation.config as config
 import logging
 
 BEARER_TOKEN = os.environ.get("BEARER_TOKEN")

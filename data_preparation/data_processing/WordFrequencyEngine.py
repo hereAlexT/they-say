@@ -1,5 +1,5 @@
-from data_processing.Processing import Processing
-import config
+from data_preparation.data_processing.Processing import Processing
+import data_preparation.config
 import spacy
 from collections import Counter
 import re

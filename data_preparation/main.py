@@ -1,6 +1,6 @@
-from BaseEngine import BaseEngine
-from data_processing.TweetProcessingEngine import TweetProcessingEngine
-from data_collection.TweetCollectionEngine import TweetCollectionEngine
+from data_preparation.BaseEngine import BaseEngine
+from data_preparation.data_processing.TweetProcessingEngine import TweetProcessingEngine
+from data_preparation.data_collection.TweetCollectionEngine import TweetCollectionEngine
 import sys, getopt
 
 
@@ -33,6 +33,7 @@ def main(argv):
     elif argv[0] == "get_user_id":
         be = BaseEngine()
         print(be.get_user_id(argv[1]))
+
 
 if __name__ == '__main__':
     main(sys.argv[1:])

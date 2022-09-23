@@ -2,7 +2,7 @@ import datetime
 
 from BaseEngine import BaseEngine
 
-from data_collection.TweetCollectionEngine import TweetCollectionEngine
+from data_preparation.data_collection.TweetCollectionEngine import TweetCollectionEngine
 from pprint import pprint
 
 tce = TweetCollectionEngine()

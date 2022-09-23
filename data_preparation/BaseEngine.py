@@ -1,6 +1,6 @@
 import os
 import tweepy
-import config
+import data_preparation.config as config
 import datetime
 from pymongo import MongoClient
 
