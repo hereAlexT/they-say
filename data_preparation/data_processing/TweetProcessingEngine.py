@@ -79,7 +79,7 @@ class TweetProcessingEngine(BaseEngine):
 
         return method(target_s)
 
-    def cal_freq(self, userid, start_date, end_date, choice: list):
+    def cal_freq(self, userid: int, start_date: datetime.datetime, end_date: datetime.datetime, choice: list):
         # fetch data
         res = list(self.get_col_processed().find({'author_id': userid},
                                                  projection={'_id': 0, 'id': 1, 'words_list': 1, 'at': 1, 'emoji': 1,
@@ -103,7 +103,6 @@ class TweetProcessingEngine(BaseEngine):
             freq_hash_l = self._cal_freq(res, attr_name='hash')
             freq_hash_l = sorted(freq_hash_l.items(), key=lambda x: x[1], reverse=True)
             _d["hash"] = freq_hash_l
-
 
         e_time = time.time()
         print(f"timecost = {e_time - s_time}\n len(res)={len(res)}")
