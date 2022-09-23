@@ -1,7 +1,14 @@
+import os
+import sys
+from pathlib import Path
+
+curPath = Path(os.path.abspath(os.path.dirname(__file__)))
+print(str(curPath.parent.absolute()))
+sys.path.append(str(curPath.parent.absolute()))
+
 from data_preparation.BaseEngine import BaseEngine
 from data_preparation.data_processing.TweetProcessingEngine import TweetProcessingEngine
 from data_preparation.data_collection.TweetCollectionEngine import TweetCollectionEngine
-import sys, getopt
 
 
 def main(argv):
