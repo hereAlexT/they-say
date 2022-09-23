@@ -79,30 +79,35 @@ class TweetProcessingEngine(BaseEngine):
 
         return method(target_s)
 
-    def cal_freq(self, userid, start_date, end_date):
+    def cal_freq(self, userid: int, start_date: datetime.datetime, end_date: datetime.datetime, choice: list):
         # fetch data
         res = list(self.get_col_processed().find({'author_id': userid},
                                                  projection={'_id': 0, 'id': 1, 'words_list': 1, 'at': 1, 'emoji': 1,
                                                              'hash': 1}))
         s_time = time.time()
-        freq_words_l = self._cal_freq(res, attr_name='words_list')
+        _d = {}
 
-        freq_at_l = self._cal_freq(res, attr_name='at')
-        freq_emoji_l = self._cal_freq(res, attr_name='emoji')
-        freq_hash_l = self._cal_freq(res, attr_name='hash')
+        if "word" in choice:
+            freq_words_l = self._cal_freq(res, attr_name='words_list')
+            freq_words_l = sorted(freq_words_l.items(), key=lambda x: x[1], reverse=True)
+            _d["word"] = freq_words_l
+        if "at" in choice:
+            freq_at_l = self._cal_freq(res, attr_name='at')
+            freq_at_l = sorted(freq_at_l.items(), key=lambda x: x[1], reverse=True)
+            _d['at'] = freq_at_l
+        if "emoji" in choice:
+            freq_emoji_l = self._cal_freq(res, attr_name='emoji')
+            freq_emoji_l = sorted(freq_emoji_l.items(), key=lambda x: x[1], reverse=True)
+            _d["emoji"] = freq_emoji_l
+        if "hash" in choice:
+            freq_hash_l = self._cal_freq(res, attr_name='hash')
+            freq_hash_l = sorted(freq_hash_l.items(), key=lambda x: x[1], reverse=True)
+            _d["hash"] = freq_hash_l
 
         e_time = time.time()
         print(f"timecost = {e_time - s_time}\n len(res)={len(res)}")
-        freq_words_l = sorted(freq_words_l.items(), key=lambda x: x[1])
-        freq_at_l = sorted(freq_at_l.items(), key=lambda x: x[1])
-        freq_hash_l = sorted(freq_hash_l.items(), key=lambda x: x[1])
-        freq_emoji_l = sorted(freq_emoji_l.items(), key=lambda x: x[1])
-        print(freq_words_l)
-        print(freq_at_l)
-        print(freq_hash_l)
-        print(freq_emoji_l)
-        return freq_words_l, freq_at_l, freq_emoji_l, freq_hash_l
-
+        print(_d)
+        return _d
 
     @staticmethod
     def _cal_freq(res, attr_name):
