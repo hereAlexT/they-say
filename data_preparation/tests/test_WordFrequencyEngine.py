@@ -45,14 +45,16 @@ I like #nylas but I don't like to go to this apple.com?a#url. I also don't like 
     assert set(at_l) == ("@Hello", "@you", "@my_friend", "@shahmirj")
     assert set(hash_l) == ("#nylas", "#msft", "#really")
 
+
 def test_begin_process():
     userid = 44196397
     # dangerous test
     # tpe.begin_process(userid)
 
+
 def test_cal_freq():
     userid = 44196397
-    start_date = datetime.datetime(1999,1,1,1,1,1)
-    end_date = datetime.datetime(9999,1,1,1,1,1)
-
-    tpe.cal_freq(userid, start_date, end_date)
+    start_date = datetime.datetime(1999, 1, 1, 1, 1, 1)
+    end_date = datetime.datetime(9999, 1, 1, 1, 1, 1)
+    choice = ["at", "emoji", "hash", "word"]
+    tpe.cal_freq(userid, start_date, end_date, choice)
