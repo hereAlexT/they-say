@@ -1,0 +1,1 @@
+FREQ_CHOICE = ['emoji', 'word', 'hash', 'at']

@@ -79,7 +79,7 @@ class TweetProcessingEngine(BaseEngine):
 
         return method(target_s)
 
-    def cal_freq(self, userid: int, start_date: datetime.datetime, end_date: datetime.datetime, choice: list):
+    def cal_freq(self, userid: int, start_time: datetime.datetime, end_time: datetime.datetime, choice: list):
         # fetch data
         res = list(self.get_col_processed().find({'author_id': userid},
                                                  projection={'_id': 0, 'id': 1, 'words_list': 1, 'at': 1, 'emoji': 1,

@@ -31,7 +31,8 @@ class BaseEngine:
         return self.api_client
 
     def get_user_id(self, screen_name):
-        return self.api_client.get_user(username=screen_name).data.id
+        if self.api_client.get_user(username=screen_name).data is not None:
+            return self.api_client.get_user(username=screen_name).data.id
 
     def get_tweets_by_user_on_db(self, userid, start_time, end_time, projection=None):
         q = {
@@ -75,4 +76,3 @@ class BaseEngine:
         :return: A list, that contain the userid of all users on db. e.g. [12434, 23123, 34324]
         """
         return list(self.get_col_raw_tweets().distinct("author_id"))
-

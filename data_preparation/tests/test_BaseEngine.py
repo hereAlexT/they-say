@@ -1,12 +1,13 @@
 import datetime
 
-from BaseEngine import BaseEngine
+from data_preparation.BaseEngine import BaseEngine
 
 be = BaseEngine()
 
 
 def test_get_client():
-    assert be.get_user_id(screen_name="elonmusk") == 44196397
+    be.get_user_id(screen_name="ednaisfaqwASDf")
+    # assert be.get_user_id(screen_name="elonmusk") == 44196397
 
 
 def test_get_db():
