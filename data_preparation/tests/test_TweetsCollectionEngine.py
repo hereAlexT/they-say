@@ -71,11 +71,13 @@ def test_insert_new_tweets_by_user():
 
 def test_user_lookup_1():
     ids = [27260086, 44196397]
-    l = tce.users_lookup(ids, compare_save=True)
+    l = tce.users_lookup(ids)
+    print(l)
+    for i in l:
+        print(i.data)
+    print(l)
     assert len(l) == 2
-    # print(l)
-    # for i in l:
-    #     print(i.data)
+
 
 
 def test_user_lookup_2():
@@ -96,3 +98,7 @@ def test_get_distinct_user_info_from_db():
     res = tce.get_distinct_user_profile_on_db()
     print()
     pprint(list(res))
+
+def test_update_users():
+    res = tce.update_users()
+    print(res)

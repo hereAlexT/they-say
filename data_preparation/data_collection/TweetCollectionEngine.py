@@ -91,6 +91,17 @@ class TweetCollectionEngine(BaseEngine):
         return _insert_list
 
     def users_lookup(self, userids: list, compare_save=False):
+        """
+        if compare_save is True, compare it with the current DB, if there is any update. insert a new document in DB
+
+
+        :param userids: e.g.[12314123, 31243242]
+        :param compare_save:
+        :return:
+        check given_users' latest update oneline. and return it in [User] type.
+        e.g. [<User id=27260086 name=Justin Bieber username=justinbieber>, <User id=44196397 name=Elon Musk username=elonmusk>]
+
+        """
         if len(userids) == 0:
             return []
         _client = self.get_api_client()
@@ -173,3 +184,8 @@ class TweetCollectionEngine(BaseEngine):
             res2.append(list(self.get_col_users().find({"_id": i["o_id"]}, projection=project))[0])
 
         return list(res2)
+
+    def update_users(self):
+        user_l = self.get_distinct_users_on_db()
+        res = self.users_lookup(userids=user_l, compare_save=True)
+        return res
