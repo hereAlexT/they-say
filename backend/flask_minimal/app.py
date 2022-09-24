@@ -41,7 +41,7 @@ class Basic(Resource, myApiTool):
 
     def post(self):
         args = self.input_args.parse_args()
-        if args['arg'] == "get_available_users":
+        if args['arg'] == "get_search_auto_complete":
             res = conndb.get_available_users_on_db()
             return res, res['status']
 
