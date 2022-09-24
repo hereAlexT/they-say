@@ -1,6 +1,6 @@
 import datetime
 
-from BaseEngine import BaseEngine
+from data_preparation.BaseEngine import BaseEngine
 
 from data_preparation.data_collection.TweetCollectionEngine import TweetCollectionEngine
 from pprint import pprint
@@ -39,12 +39,14 @@ def test_get_new_tweets_by_user_2():
     res = tce.get_new_tweets_by_user(userid, _start_time=time)
     pprint(res)
 
+
 def test_get_new_tweets_by_user_3():
     s_name = "elonmusk"
     userid = tce.get_user_id(screen_name=s_name)
     userid = 27260086
     res = tce.get_new_tweets_by_user(userid)
     pprint(res)
+
 
 # dangerous test !!!!!!!!!!!!!!!!!!
 # dangerous test !!!!!!!!!!!!!!!!!!
@@ -59,6 +61,7 @@ def test_insert_new_tweets_by_user():
     res = tce.insert_new_tweets_by_user(userid)
     pprint(res)
 
+
 # def test_insert_new_tweets_by_user_2():
 #     s_name = "elonmusk"
 #     userid = tce.get_user_id(screen_name=s_name)
@@ -66,3 +69,25 @@ def test_insert_new_tweets_by_user():
 #     pprint(res)
 
 
+def test_user_lookup_1():
+    ids = [27260086, 44196397]
+    l = tce.users_lookup(ids, compare_save=True)
+    assert len(l) == 2
+    # print(l)
+    # for i in l:
+    #     print(i.data)
+
+
+def test_user_lookup_2():
+    ids = [27260086]
+    l = tce.users_lookup(ids, compare_save=True)
+    # assert len(l) == 1
+    # print(l)
+    # for i in l:
+    #     print(i.data)
+
+
+def test_user_lookup_3():
+    ids = [27260086, 44196397]
+    l = tce.users_lookup(ids, compare_save=True)
+    # assert len(l) == 0

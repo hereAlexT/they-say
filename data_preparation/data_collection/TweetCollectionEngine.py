@@ -5,6 +5,7 @@ import tweepy
 from data_preparation.BaseEngine import BaseEngine
 import data_preparation.config as config
 import logging
+from pprint import pprint
 
 BEARER_TOKEN = os.environ.get("BEARER_TOKEN")
 
@@ -83,7 +84,54 @@ class TweetCollectionEngine(BaseEngine):
         for i in _insert_list:
             i = BaseEngine.convert_tweepy_object_to_dict(i)
             print(i)
-            count += 1
             _col.insert_one(i)
         logging.info(f"Length of updated_list: {len(_insert_list)}, insert {count} entries.")
         return _insert_list
+
+    def users_lookup(self, userids: list, compare_save=False):
+        if len(userids) == 0:
+            return []
+        _client = self.get_api_client()
+        res = []
+        for i in range(0, len(userids), 99):
+            res += _client.get_users(ids=userids[i:i + 99], user_fields=config.USER_FIELDS).data
+        # compare and only save the latest profile
+        if compare_save is True:
+            for user in res:
+                udata = user
+                sort = list({'created_at': -1}.items())
+                user2 = list(self.get_col_users().find({'id': udata['id']}, sort=sort))
+                if len(user2) == 0 or self.user_compare(user1=udata.data, user2=user2[0]) is False:
+                    _ud = {
+                        'save_time': datetime.datetime.now(),
+                        'created_at': udata['created_at'],
+                        'username': udata['username'],
+                        'location': udata['location'],
+                        'profile_image_url': udata['profile_image_url'],
+                        'id': udata['id'],
+                        'url': udata['url'],
+                        'public_metrics': udata['public_metrics'],
+                        'name': udata['name'],
+                        'pinned_tweet_id': udata['pinned_tweet_id'],
+                        'protected': udata['protected'],
+                        'verified': udata['verified'],
+                        'description': udata['description'],
+                        'entities': udata['entities'],
+                        'withheld': udata['withheld']
+                    }
+                    self.get_col_users().insert_one(_ud)
+        return res
+
+    def user_compare(self, user1, user2):
+        """
+
+        :param user1: dict
+        :param user2: dict
+        :return:  Same = True, Different = False
+        """
+        key_to_compare = ['username', 'location', 'profile_image_url', 'name', 'protected', 'verified', 'description']
+        for _k in key_to_compare:
+            if user1[_k] != user2[_k]:
+                return False
+        return True
+

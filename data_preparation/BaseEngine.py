@@ -14,8 +14,10 @@ class BaseEngine:
         self.db_client = MongoClient('mongodb://localhost:27017/')
         self.db = self.db_client[config.DB]
         self.col_raw_tweets = self.db['RawTweets']
-        self.col_processed = self.db['Processed']
+        self.col_processed = self.db['Processed'] # word freq collection
+        self.col_users = self.db['Users']
         self.api_client = tweepy.Client(bearer_token=BEARER_TOKEN)
+
 
     def get_db_client(self):
         return self.db_client
@@ -28,6 +30,9 @@ class BaseEngine:
 
     def get_col_processed(self):
         return self.col_processed
+
+    def get_col_users(self):
+        return self.col_users
 
     def get_api_client(self):
         return self.api_client
@@ -83,11 +88,16 @@ class BaseEngine:
 
         return _d
 
+
     def get_distinct_users_on_db(self) -> list:
         """
         :return: A list, that contain the userid of all users on db. e.g. [12434, 23123, 34324]
         """
         return list(self.get_col_raw_tweets().distinct("author_id"))
+
+    def get_screen_name_by_id(self, userid:int):
+        #todo
+        pass
 
     @staticmethod
     def screen_name_validation(screen_name) -> bool:
