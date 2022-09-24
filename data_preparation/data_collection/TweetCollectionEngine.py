@@ -62,10 +62,11 @@ class TweetCollectionEngine(BaseEngine):
         _client = self.get_api_client()
         if _start_time is None:
             _start_time = self.get_time_latest_tweet_on_db(userid)
-            print(_start_time)
+            print(f"get_new_tweets_by_user: time of last tweet on db of user {userid} is {_start_time}")
             if _start_time is None:
                 # grab the latest 3200 tweets
                 _start_time = datetime.datetime(2011, 11, 6, 1, 1, 1)
+                print(f"get_new_tweets_by_user: start date is not specified, grab the 3200 tweets of user {userid}")
                 totally_new_flag = True
         _tweets_list = []
         for status in tweepy.Paginator(_client.get_users_tweets, id=userid, max_results=5, limit=1,
@@ -73,20 +74,25 @@ class TweetCollectionEngine(BaseEngine):
             if status.data is not None:
                 for i in status.data:
                     _tweets_list.append(i)
-        if totally_new_flag is True:
-            return _tweets_list
-        else:
-            return _tweets_list[:-1]
+            if totally_new_flag is True:
+                return _tweets_list
+            else:
+                return _tweets_list[:-1]
 
     def insert_new_tweets_by_user(self, userid, _start_time=None):
         logging.info(f"Insert New Tweets [userid = {userid}]")
         _insert_list = self.get_new_tweets_by_user(userid, _start_time)
         _col = self.get_col_raw_tweets()
         count = 0
+        total = len(_insert_list)
+        print(f"insert_new_tweets_by_user: total {total} tweets posted, updating")
         for i in _insert_list:
             i = BaseEngine.convert_tweepy_object_to_dict(i)
-            print(i)
             _col.insert_one(i)
+            print(f"insert_new_tweets_by_user: author_id: {i['author_id']} - time: {i['created_at']} - text: {i['text']}")
+            count += 1
+            print(f"insert_new_tweets_by_user: updating {count} / {total}")
+
         logging.info(f"Length of updated_list: {len(_insert_list)}, insert {count} entries.")
         return _insert_list
 
