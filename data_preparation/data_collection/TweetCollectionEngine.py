@@ -101,7 +101,6 @@ class TweetCollectionEngine(BaseEngine):
                 udata = user
                 sort = list({'created_at': -1}.items())
                 user2 = list(self.get_col_users().find({'id': udata['id']}, sort=sort))
-                user2[0]['location'] = "fuck"
                 if len(user2) == 0 or TweetCollectionEngine.user_compare(user1=udata.data, user2=user2[0]) is False:
                     _ud = {
                         'save_time': datetime.datetime.now(),
@@ -122,6 +121,7 @@ class TweetCollectionEngine(BaseEngine):
                     }
                     self.get_col_users().insert_one(_ud)
         return res
+
     @staticmethod
     def user_compare(user1, user2):
         """
@@ -138,3 +138,32 @@ class TweetCollectionEngine(BaseEngine):
             except KeyError as e:
                 continue
         return True
+
+    def get_distinct_user_on_db(self, available=False):
+        # make it activate
+        sort = list({'save_time': -1}.items())
+        # res = self.get_col_users().distinct("id")
+        res = self.get_col_users().aggregate(
+            [
+                # {"$match": {"available": True}},
+                {"$sort": {"save_time": -1}},
+                {"$group":
+                    {
+                        "_id": "$id",
+                        "save_time": {
+                            "$first": "$save_time"},
+                        "o_id": {
+                            "$first": "$_id"
+                        }
+                    }},
+                # {"$project": {
+                #     "o_id": 1,
+                #     "save_time": 0,
+                # }}
+            ])
+        res2 = []
+        for i in list(res):
+            print(i["o_id"])
+            res2.append(list(self.get_col_users().find({"_id": i["o_id"]}))[0])
+
+        return list(res2)

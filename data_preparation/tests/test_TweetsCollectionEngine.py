@@ -91,3 +91,8 @@ def test_user_lookup_3():
     ids = [27260086, 44196397]
     l = tce.users_lookup(ids, compare_save=True)
     # assert len(l) == 0
+
+def test_get_distinct_user_info_from_db():
+    res = tce.get_distinct_user_on_db()
+    print()
+    pprint(list(res))
