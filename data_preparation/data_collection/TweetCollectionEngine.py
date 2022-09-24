@@ -101,7 +101,8 @@ class TweetCollectionEngine(BaseEngine):
                 udata = user
                 sort = list({'created_at': -1}.items())
                 user2 = list(self.get_col_users().find({'id': udata['id']}, sort=sort))
-                if len(user2) == 0 or self.user_compare(user1=udata.data, user2=user2[0]) is False:
+                user2[0]['location'] = "fuck"
+                if len(user2) == 0 or TweetCollectionEngine.user_compare(user1=udata.data, user2=user2[0]) is False:
                     _ud = {
                         'save_time': datetime.datetime.now(),
                         'created_at': udata['created_at'],
@@ -121,17 +122,19 @@ class TweetCollectionEngine(BaseEngine):
                     }
                     self.get_col_users().insert_one(_ud)
         return res
-
-    def user_compare(self, user1, user2):
+    @staticmethod
+    def user_compare(user1, user2):
         """
-
         :param user1: dict
         :param user2: dict
         :return:  Same = True, Different = False
         """
+
         key_to_compare = ['username', 'location', 'profile_image_url', 'name', 'protected', 'verified', 'description']
         for _k in key_to_compare:
-            if user1[_k] != user2[_k]:
-                return False
+            try:
+                if user1[_k] != user2[_k]:
+                    return False
+            except KeyError as e:
+                continue
         return True
-
