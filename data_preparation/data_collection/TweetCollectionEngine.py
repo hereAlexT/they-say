@@ -1,3 +1,5 @@
+import sys
+
 import datetime
 
 import os
@@ -162,7 +164,12 @@ class TweetCollectionEngine(BaseEngine):
             ])
         res2 = []
         for i in list(res):
-            print(i["o_id"])
-            res2.append(list(self.get_col_users().find({"_id": i["o_id"]}))[0])
+            project = {
+                '_id': 0,
+                'id': 1,
+                'username': 1,
+                'name': 1,
+            }
+            res2.append(list(self.get_col_users().find({"_id": i["o_id"]}, projection=project))[0])
 
         return list(res2)

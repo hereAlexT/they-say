@@ -1,4 +1,5 @@
 from data_preparation.data_processing.TweetProcessingEngine import TweetProcessingEngine
+from data_preparation.data_collection.TweetCollectionEngine import TweetCollectionEngine
 import datetime
 import project_config as config
 import sys
@@ -8,6 +9,7 @@ import dateutil.parser
 class ConnDB:
     def __init__(self):
         self.tpe = TweetProcessingEngine()
+        self.tce = TweetCollectionEngine()
 
     @staticmethod
     def eval_datetime(time: str):
@@ -45,3 +47,16 @@ class ConnDB:
                 'msg': "given username is invalid",
                 'data': []
             }
+
+    def get_available_users_on_db(self):
+        """
+        :return: {"screen_name": []}
+        """
+        res = self.tce.get_distinct_user_profile_on_db()
+        return {
+            'status': 200,
+            'msg': "distinct user profiles that you can check",
+            'data': res
+        }
+
+
