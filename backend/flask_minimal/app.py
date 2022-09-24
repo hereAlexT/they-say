@@ -27,14 +27,10 @@ class WordsFreq(Resource, myApiTool):
                                      required=True)
         self.input_args.add_argument("choice", type=list, help="require choice", location='json')
 
-    def get(self):
+    def post(self):
         args = self.input_args.parse_args()
         res = conndb.get_freq(args['start_time'], args['end_time'], args['screen_name'], args['choice'])
         return res, res['status']
-
-    def post(self):
-        args = self.input_args.parse_args()
-        return args
 
 
 class Basic(Resource, myApiTool):
@@ -43,7 +39,7 @@ class Basic(Resource, myApiTool):
         self.input_args = reqparse.RequestParser()
         self.input_args.add_argument("arg", type=str, help="arg required", location='json', required=True)
 
-    def get(self):
+    def post(self):
         args = self.input_args.parse_args()
         if args['arg'] == "get_available_users":
             res = conndb.get_available_users_on_db()
