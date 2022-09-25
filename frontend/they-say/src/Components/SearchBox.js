@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 
-export default function FreeSolo() {
+export default function FreeSolo(props) {
 
     const [search_box_content, set_search_box_content] = useState(
         [{
@@ -17,7 +17,6 @@ export default function FreeSolo() {
             "name": "Loading"
         }]
     )
-    const [search_words, set_search_words] = useState()
 
     const get_search_auto_complete_data = { "arg": "get_search_auto_complete" }
 
@@ -31,12 +30,6 @@ export default function FreeSolo() {
     }, [])
 
 
-    function onChangeHandler(e, newValue) {
-        console.log(newValue)
-        /* search on the API */
-    }
-
-
     return (
         <Stack spacing={2} sx={{ width: 300 }}>
             <Autocomplete
@@ -44,7 +37,7 @@ export default function FreeSolo() {
                 id="free-solo-2-demo"
                 disableClearable
                 options={search_box_content.map(res => res['username'])}
-                onChange={onChangeHandler}
+                onChange={props.searchHandler}
                 renderInput={(params) => (
                     <TextField
                         {...params}
