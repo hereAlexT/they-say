@@ -1,10 +1,15 @@
-from ast import arg
-from tracemalloc import start
+import os
+import sys
+from pathlib import Path
+curPath = Path(os.path.abspath(os.path.dirname(__file__)))
+newPath = str(curPath.parent.parent.absolute())
+print(newPath)
+sys.path.append(newPath)
+
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
-import datetime
 from connDB import ConnDB
-import sys
+
 
 app = Flask(__name__)
 api = Api(app)
