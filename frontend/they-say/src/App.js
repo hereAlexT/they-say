@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <h1>TheySay.app</h1>
-      <SearchBox />
+      <SearchBox /> 
 
     </div>
   );
