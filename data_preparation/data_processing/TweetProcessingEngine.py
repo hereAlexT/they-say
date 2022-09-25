@@ -90,31 +90,39 @@ class TweetProcessingEngine(BaseEngine):
         _d = {}
 
         if "word" in choice:
-            freq_words_l = self._cal_freq(res, attr_name='words_list')
-            freq_words_l = sorted(freq_words_l.items(), key=lambda x: x[1], reverse=True)
-            _d["word"] = freq_words_l
+            freq_l = self._cal_freq(res, attr_name='words_list')
+            freq_l = sorted(freq_l.items(), key=lambda item: item[1], reverse=True)
+            _d["word"] = freq_l
         if "at" in choice:
-            freq_at_l = self._cal_freq(res, attr_name='at')
-            freq_at_l = sorted(freq_at_l.items(), key=lambda x: x[1], reverse=True)
-            _d['at'] = freq_at_l
+
+            freq_l = self._cal_freq(res, attr_name='at')
+            freq_l = sorted(freq_l.items(), key=lambda item: item[1], reverse=True)
+            _d['at'] = freq_l
         if "emoji" in choice:
-            freq_emoji_l = self._cal_freq(res, attr_name='emoji')
-            freq_emoji_l = sorted(freq_emoji_l.items(), key=lambda x: x[1], reverse=True)
-            _d["emoji"] = freq_emoji_l
+            freq_l = self._cal_freq(res, attr_name='emoji')
+            freq_l = sorted(freq_l.items(), key=lambda item: item[1], reverse=True)
+            _d["emoji"] = freq_l
         if "hash" in choice:
-            freq_hash_l = self._cal_freq(res, attr_name='hash')
-            freq_hash_l = sorted(freq_hash_l.items(), key=lambda x: x[1], reverse=True)
-            _d["hash"] = freq_hash_l
+            freq_l = self._cal_freq(res, attr_name='hash')
+            freq_l = sorted(freq_l.items(), key=lambda item: item[1], reverse=True)
+            _d["hash"] = freq_l
 
         e_time = time.time()
         print(f"timecost = {e_time - s_time}\n len(res)={len(res)}")
         # print(_d)
         return _d
 
+
+
     @staticmethod
-    def _cal_freq(res, attr_name):
+    def _cal_freq(token_words, attr_name):
+        """
+        :param token_words:  e.g. [["hello", "baby", "hello"]]
+        :param attr_name:  e.g. words_list, hash, emoji
+        :return:
+        """
         freq_l = {}
-        for i in res:
+        for i in token_words:
             for w in i[attr_name]:
                 if w in freq_l:
                     freq_l[w] += 1

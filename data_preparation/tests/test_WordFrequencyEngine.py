@@ -57,4 +57,13 @@ def test_cal_freq():
     start_date = datetime.datetime(1999, 1, 1, 1, 1, 1)
     end_date = datetime.datetime(9999, 1, 1, 1, 1, 1)
     choice = ["at", "emoji", "hash", "word"]
-    tpe.cal_freq(userid, start_date, end_date, choice)
+    res = tpe.cal_freq(userid, start_date, end_date, choice)
+
+
+def test_cal_freq_2():
+    userid = 44196397
+    start_date = datetime.datetime(1999, 1, 1, 1, 1, 1)
+    end_date = datetime.datetime(9999, 1, 1, 1, 1, 1)
+    choice = ["word"]
+    res = tpe.cal_freq(userid, start_date, end_date, choice)
+    print(res)
