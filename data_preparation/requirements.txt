@@ -1,6 +1,0 @@
-tweepy
-spacy
-pytest
-pymongo
-emoji
-python-dateutil

@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 curPath = Path(os.path.abspath(os.path.dirname(__file__)))
-newPath = str(curPath.parent.parent.absolute())
+newPath = str(curPath.parent.absolute())
 print(newPath)
 sys.path.append(newPath)
 

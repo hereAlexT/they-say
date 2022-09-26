@@ -53,7 +53,7 @@ class TweetProcessingEngine(BaseEngine):
 
             at_l, hash_l, emoji_l = self.freqEngine.get_at_n_hash(text)
             e_time = time.time()
-            logger.debug(f" Processing time cost = {e_time - s_time}")
+            # logger.debug(f" Processing time cost = {e_time - s_time}")
 
             _d = {'id': val[0]['id'],
                   'author_id': userid,
