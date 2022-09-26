@@ -1,58 +1,59 @@
 import os
 import sys
 from pathlib import Path
+
 curPath = Path(os.path.abspath(os.path.dirname(__file__)))
 newPath = str(curPath.parent.parent.absolute())
 print(newPath)
 sys.path.append(newPath)
 
-from flask import Flask
+from flask import Flask, jsonify, request
 from flask_restful import Resource, Api, reqparse
 from connDB import ConnDB
-
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 conndb = ConnDB()
 
 
-class myApiTool():
-    @staticmethod
-    def no_method(time: str):
-        pass
+@app.route('/api/wf', methods=['POST'])
+def wordFreq():
+    error = None
+    if request.method == 'POST':
+        args = request.json
+        # valid the input
+        if "start_time" in args and type(args['start_time']) == str \
+                and "end_time" in args and type(args['end_time']) == str \
+                and "screen_name" in args and type(args['screen_name']) == str \
+                and "choice" in args and type(args['choice']) == list:
+
+            res = conndb.get_freq(args['start_time'], args['end_time'], args['screen_name'], args['choice'])
+            return jsonify(res), res['status']
+        else:
+            return "Wrong arg!", 400
+
+    else:
+        return "Wrong arg!", 400
 
 
-class WordsFreq(Resource, myApiTool):
-    def __init__(self):
-        super().__init__()
-        self.input_args = reqparse.RequestParser()
-        self.input_args.add_argument("start_time", type=str, help="require start_time", location='json', required=True)
-        self.input_args.add_argument("end_time", type=str, help="require end_time", location='json', required=True)
-        self.input_args.add_argument("screen_name", type=str, help="require screen_time", location='json',
-                                     required=True)
-        self.input_args.add_argument("choice", type=list, help="require choice", location='json')
-
-    def post(self):
-        args = self.input_args.parse_args()
-        res = conndb.get_freq(args['start_time'], args['end_time'], args['screen_name'], args['choice'])
-        return res, res['status']
-
-
-class Basic(Resource, myApiTool):
-    def __init__(self):
-        super().__init__()
-        self.input_args = reqparse.RequestParser()
-        self.input_args.add_argument("arg", type=str, help="arg required", location='json', required=True)
-
-    def post(self):
-        args = self.input_args.parse_args()
+@app.route('/api/basic', methods=['POST'])
+def basic():
+    args = request.json
+    print(args, file=sys.stderr)
+    if "arg" in args and type(args['arg']) == str:
         if args['arg'] == "get_search_auto_complete":
             res = conndb.get_available_users_on_db()
-            return res, res['status']
+            return jsonify(res), res['status']
+
+    return "Wrong arg!", 400
 
 
-api.add_resource(WordsFreq, "/api/wf/")
-api.add_resource(Basic, "/api/basic/")
+@app.route('/api', methods=['GET', 'POST'])
+def index():
+    return jsonify({"msg": "Stay hungry, stay foolish. - Steve Jobs"}), 404
+
 
 if __name__ == '__main__':
     app.run(debug=True)
