@@ -1,5 +1,5 @@
-from backend.data_preparation.data_processing.TweetProcessingEngine import TweetProcessingEngine
-from backend.data_preparation.data_collection.TweetCollectionEngine import TweetCollectionEngine
+from data_preparation.data_processing.TweetProcessingEngine import TweetProcessingEngine
+from data_preparation.data_collection.TweetCollectionEngine import TweetCollectionEngine
 import project_config as config
 import sys
 import dateutil.parser

@@ -8,13 +8,11 @@ print(newPath)
 sys.path.append(newPath)
 
 from flask import Flask, jsonify, request
-from flask_restful import Resource, Api, reqparse
 from connDB import ConnDB
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-api = Api(app)
 conndb = ConnDB()
 
 
@@ -51,10 +49,16 @@ def basic():
 
 
 @app.route('/api', methods=['GET', 'POST'])
+def index_api():
+    return jsonify({"msg": "Stay hungry, stay foolish. - Steve Jobs"}), 404
+
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return jsonify({"msg": "Stay hungry, stay foolish. - Steve Jobs"}), 404
 
 
+
 if __name__ == '__main__':
     # app.run(debug=True)
-    app.run(debug=True)
+    app.run("0.0.0.0", port=8888)
