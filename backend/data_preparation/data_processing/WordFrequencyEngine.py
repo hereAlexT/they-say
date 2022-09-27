@@ -16,7 +16,7 @@ class WordFrequencyEngine(Processing):
         words = text.split(" ")
         for w in words:
 
-            # remove invlaid char
+            # remove invalid char
             w = w.lower()
             for c in w:
                 if c not in config.VALID_CHAR:
