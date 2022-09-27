@@ -57,9 +57,6 @@ class TweetProcessingEngine(BaseEngine):
 
                 url_match = re.search(url_regex, i)
                 num_match = re.search(num_regex, i)
-                print(i)
-                print(f"url match{url_match}")
-
                 if i not in EMOJI_DATA and i[0] != '@':
                     if not url_match:
                         if not num_match:
@@ -86,10 +83,10 @@ class TweetProcessingEngine(BaseEngine):
                   "url": url_l
                   }
 
-            pprint(_d)
+            # pprint(_d)
             col_processed.insert_one(_d)
             count += 1
-            print(f"Progress: {count}/{total} ")
+            print(f"Userid: {userid} TimeCost: {round(e_time- s_time, 4)} s (Progress: {count}/{total})")
 
     def test_portal(self, userid, method):
         now = datetime.datetime.now()

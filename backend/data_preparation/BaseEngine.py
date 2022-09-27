@@ -11,6 +11,7 @@ BEARER_TOKEN = secret_env.BEARER_TOKEN
 MONGODB_URI = secret_env.MONGODB_URI
 
 
+
 class BaseEngine:
     def __init__(self):
         self.db_client = MongoClient(MONGODB_URI, connect=False)
@@ -19,6 +20,8 @@ class BaseEngine:
         self.col_processed = self.db['Processed'] # word freq collection
         self.col_users = self.db['Users']
         self.api_client = tweepy.Client(bearer_token=BEARER_TOKEN)
+
+
 
 
     def get_db_client(self):

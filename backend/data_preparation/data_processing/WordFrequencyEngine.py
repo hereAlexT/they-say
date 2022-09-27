@@ -28,9 +28,8 @@ class WordFrequencyEngine(Processing):
                 freq_dict[w] = 1
         return freq_dict
 
-    @staticmethod
-    def spacy_tokenization(text):
-        nlp = spacy.load("en_core_web_sm")
+    def spacy_tokenization(self, text):
+        nlp = spacy.load(self.get_spacy_model())
         nlp.max_length = 999999999999
         doc = nlp(text)
         words = []
