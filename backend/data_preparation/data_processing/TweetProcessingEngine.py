@@ -1,4 +1,4 @@
-import data_preparation.config
+import data_preparation.config as config
 from data_preparation.BaseEngine import BaseEngine
 import datetime
 import time
@@ -60,7 +60,12 @@ class TweetProcessingEngine(BaseEngine):
                 if i not in EMOJI_DATA and i[0] != '@':
                     if not url_match:
                         if not num_match:
-                            if "\n" not in i:
+                            special_char = False
+                            for j in i:
+                                if j not in config.LOWER_CASE_CHAR:
+                                    special_char = True
+
+                            if not special_char:
                                 new_token.append(i)
                         else:
                             num_l.append(i)
