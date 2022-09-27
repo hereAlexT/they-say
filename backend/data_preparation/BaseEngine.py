@@ -6,13 +6,14 @@ import data_preparation.config as config
 import datetime
 from pymongo import MongoClient
 
-BEARER_TOKEN = os.environ.get("BEARER_TOKEN")
-MONGODB_URI = os.environ.get("MONGODB_URI")
+import data_preparation.secret_env as secret_env
+BEARER_TOKEN = secret_env.BEARER_TOKEN
+MONGODB_URI = secret_env.MONGODB_URI
 
 
 class BaseEngine:
     def __init__(self):
-        self.db_client = MongoClient(MONGODB_URI)
+        self.db_client = MongoClient(MONGODB_URI, connect=False)
         self.db = self.db_client[config.DB]
         self.col_raw_tweets = self.db['RawTweets']
         self.col_processed = self.db['Processed'] # word freq collection
