@@ -52,7 +52,7 @@ export default function StickyHeadTable(props) {
       "choice": ["word"]
     }
     console.log("FreqTable Trying to connect to API: " + props.search_words)
-    axios.post('http://127.0.0.1:5000/api/wf',
+    axios.post('https://api.theysay.tech/wf',
       get_freq_data)
       .then(res => {
         // console.log(res['data']['data'])

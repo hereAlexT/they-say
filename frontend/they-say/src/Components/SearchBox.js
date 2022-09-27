@@ -21,7 +21,7 @@ export default function FreeSolo(props) {
     const get_search_auto_complete_data = { "arg": "get_search_auto_complete" }
 
     useEffect(() => {
-        axios.post('http://127.0.0.1:5000/api/basic',
+        axios.post('https://api.theysay.tech/basic',
             get_search_auto_complete_data)
             .then(res => {
                 set_search_box_content(res['data']['data']);
