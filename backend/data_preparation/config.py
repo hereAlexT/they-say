@@ -5,6 +5,6 @@ TWEET_FIELDS = ['attachments', 'author_id', 'context_annotations', 'conversation
                 'reply_settings', 'source', 'withheld']
 USER_FIELDS = ['id', 'name', 'username', 'created_at', 'description', 'entities', 'location', 'pinned_tweet_id',
                'profile_image_url', 'protected', 'public_metrics', 'url', 'verified', 'withheld']
-DB = "TweetMining"
+DB = "TheySayDB"
 VALID_CHAR = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 LOWER_CASE_CHAR = "abcdefghijklmnopqrstuvwxyz"
