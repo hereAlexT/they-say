@@ -154,3 +154,5 @@ node_modules
 
 .DS_Store
 
+secret_env.py
+
