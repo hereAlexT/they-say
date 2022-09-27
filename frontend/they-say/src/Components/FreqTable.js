@@ -12,8 +12,8 @@ import axios from 'axios'
 
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+  { id: 'name', label: 'Word', minWidth: 170 },
+  { id: 'code', label: 'Freq', minWidth: 100 },
 ];
 
 function createData(name, code) {
