@@ -16,7 +16,7 @@ CORS(app)
 conndb = ConnDB()
 
 
-@app.route('/api/wf', methods=['POST'])
+@app.route('/wf', methods=['POST'])
 def wordFreq():
     error = None
     if request.method == 'POST':
@@ -36,7 +36,7 @@ def wordFreq():
         return "Wrong arg!", 400
 
 
-@app.route('/api/basic', methods=['POST'])
+@app.route('/basic', methods=['POST'])
 def basic():
     args = request.json
     print(args, file=sys.stderr)
