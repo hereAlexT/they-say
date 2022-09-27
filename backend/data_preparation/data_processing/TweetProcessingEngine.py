@@ -4,6 +4,8 @@ import datetime
 import time
 from data_preparation.data_processing.WordFrequencyEngine import WordFrequencyEngine
 from emoji import EMOJI_DATA
+import re
+from pprint import pprint
 
 from data_preparation.my_logging import logger
 
@@ -44,11 +46,29 @@ class TweetProcessingEngine(BaseEngine):
             val = list(col_raw_tweets.find({"id": i}, projection={'id': 1, 'text': 1, '_id': -1, 'created_at': 1}))
             text = val[0]['text']
             token = self.freqEngine.spacy_tokenization(text)
-            # remove emoji
+            # remove emoji, get list of number of url
+            url_regex = r"((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z]){2,6}([a-zA-Z0-9\.\&\/\?\:@\-_=#])*"
+            num_regex = r"^(?!-0?(\.0+)?$)-?(0|[1-9]\d*)?(\.\d+)?(?<=\d)$"
+
             new_token = []
+            url_l = []
+            num_l = []
             for i in token:
+
+                url_match = re.search(url_regex, i)
+                num_match = re.search(num_regex, i)
+                print(i)
+                print(f"url match{url_match}")
+
                 if i not in EMOJI_DATA and i[0] != '@':
-                    new_token.append(i)
+                    if not url_match:
+                        if not num_match:
+                            if "\n" not in i:
+                                new_token.append(i)
+                        else:
+                            num_l.append(i)
+                    else:
+                        url_l.append(i)
             token = new_token
 
             at_l, hash_l, emoji_l = self.freqEngine.get_at_n_hash(text)
@@ -61,8 +81,12 @@ class TweetProcessingEngine(BaseEngine):
                   'words_list': token,
                   'at': at_l,
                   "emoji": emoji_l,
-                  'hash': hash_l}
+                  'hash': hash_l,
+                  'num': num_l,
+                  "url": url_l
+                  }
 
+            pprint(_d)
             col_processed.insert_one(_d)
             count += 1
             print(f"Progress: {count}/{total} ")
