@@ -1,6 +1,7 @@
 # When backend are updated run this script, you should run the script in the backend_flask folder
 # use sudo ./update_deploy.sh to run the script
 echo "restarting backend_flask service"
+
 sudo rm backend_flask.sock
 sudo systemctl stop backend_flask
 sudo systemctl start backend_flask
