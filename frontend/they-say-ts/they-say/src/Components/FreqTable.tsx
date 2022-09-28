@@ -19,8 +19,8 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+    { id: 'name', label: 'Word', minWidth: 170 },
+    { id: 'code', label: 'Freq', minWidth: 100 },
 ];
 
 interface Data {
@@ -35,23 +35,7 @@ function createData(
     return { name, code };
 }
 
-const rows = [
-    createData('India', 'IN'),
-    createData('China', 'CN'),
-    createData('Italy', 'IT'),
-    createData('United States', 'US'),
-    createData('Canada', 'CA'),
-    createData('Australia', 'AU'),
-    createData('Germany', 'DE'),
-    createData('Ireland', 'IE'),
-    createData('Mexico', 'MX'),
-    createData('Japan', 'JP'),
-    createData('France', 'FR'),
-    createData('United Kingdom', 'GB'),
-    createData('Russia', 'RU'),
-    createData('Nigeria', 'NG'),
-    createData('Brazil', 'BR'),
-];
+
 
 export default function StickyHeadTable(props: any) {
     const [page, setPage] = React.useState(0);
@@ -135,7 +119,7 @@ export default function StickyHeadTable(props: any) {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={rows.length}
+                count={rowsData.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

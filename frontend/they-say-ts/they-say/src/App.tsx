@@ -1,18 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import SearchBox from './Components/SearchBox';
 import FreqTable from './Components/FreqTable';
 import './App.css';
 import { useState, useEffect } from 'react'
+import Footer from './Components/Footer'
+import HeroComponent from './Components/HeroComponent'
+import NavBar from './Components/NavBar'
+import Container from '@mui/material/Container';
 
 
 
 function App() {
   const [search_words, set_search_words] = useState<string>("")
-
-
-
-
 
   /* todo: figure out the type of e */
   function searchHandler(e: any, newValue: string) {
@@ -39,10 +38,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1>TheySay.app</h1>
-      <SearchBox searchHandler={searchHandler} />
-      <GetFreqTable />
-
+      <NavBar />
+      <HeroComponent />
+      <Container>
+        <SearchBox searchHandler={searchHandler} />
+        <GetFreqTable />
+      </Container>
+      <Footer />
     </div>
   );
 }
