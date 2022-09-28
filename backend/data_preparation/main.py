@@ -25,6 +25,18 @@ def begin_tweet_pre_processing(argv):
         tpe.begin_process(userid)
 
 
+def update_tweets_batch(argv):
+    input("This function is defined in the script x 1/3")
+    input("This function is defined in the script x 2/3")
+    input("This function is defined in the scriptx  3/3")
+    be = BaseEngine()
+    update_list = ['KimKardashian', 'selenagomez', 'UQ_News', 'jacobcollier', 'cz_binance', 'BillGates',
+                   'neymarjr', 'realmadrid', 'BrunoMars', 'RickandMorty', 'BTS_twt', 'NASA']
+    for i in update_list:
+        _id = be.get_user_id(i)
+        print(f"Updating {i}, id: {_id}")
+        update_tweets(['', _id, 'ignore_2x_confirm'])
+
 def update_tweets(argv):
     """ if userid not exist, program will crawl and save it to db"""
 
@@ -37,7 +49,8 @@ def update_tweets(argv):
     else:
 
         userid = argv[1]
-        input(f'Your Request userid is {userid}, are you sure to continue?')
+        if argv[2] is not None and argv[2] != 'ignore_2x_confirm':
+            input(f'Your Request userid is {userid}, are you sure to continue?')
         tce.insert_new_tweets_by_user(int(userid))
 
 
@@ -71,6 +84,9 @@ def main(argv):
         update_user_profiles([])
         print("Processing")
         begin_tweet_pre_processing(['', 'all'])
+
+    elif argv[0] == 'update_tweets_batch':
+        update_tweets_batch(argv)
 
 
 if __name__ == '__main__':
