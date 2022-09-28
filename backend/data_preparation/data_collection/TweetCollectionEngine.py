@@ -69,15 +69,15 @@ class TweetCollectionEngine(BaseEngine):
                 print(f"get_new_tweets_by_user: start date is not specified, grab the 3200 tweets of user {userid}")
                 totally_new_flag = True
         _tweets_list = []
-        for status in tweepy.Paginator(_client.get_users_tweets, id=userid, max_results=5, limit=1,
+        for status in tweepy.Paginator(_client.get_users_tweets, id=userid, max_results=100, limit=32,
                                        tweet_fields=config.TWEET_FIELDS, start_time=_start_time):
             if status.data is not None:
                 for i in status.data:
                     _tweets_list.append(i)
-            if totally_new_flag is True:
-                return _tweets_list
-            else:
-                return _tweets_list[:-1]
+        if totally_new_flag is True:
+            return _tweets_list
+        else:
+            return _tweets_list[:-1]
 
     def insert_new_tweets_by_user(self, userid, _start_time=None):
         logging.info(f"Insert New Tweets [userid = {userid}]")
