@@ -7,34 +7,31 @@ import Footer from './Components/Footer'
 import HeroComponent from './Components/HeroComponent'
 import NavBar from './Components/NavBar'
 import Container from '@mui/material/Container';
+import { WordFreqRequestType } from './Funs/GetWordFreq';
+import { GetWordFreq } from './Funs/GetWordFreq';
 
 
-/*todo: alreadly defined in searchbox, no need to define here */
-type search_keywords_type = {
-  "keywords": string,
-  "starttime": string,
-  "endtime": string
-}
+
 
 
 function App() {
-  const [search_words, set_search_words] = useState<search_keywords_type>({ keywords: "", starttime: "2010-09-28T08:27:35.000Z", endtime: "2022-09-28T08:27:35.000Z" })
+  /* todo: should not use any, but I don't know how to solve it wisely */
+  const [WordFreqData, setWordFreqData] = useState<any>()
 
-  /* todo: figure out the type of e */
-  function searchHandler(e: any) {
-    /* todo: maybe do analyze here, then choose the correct to coll*/
-    // console.log("Your inpur searching word is '" + newValue + "'")
-    // set_search_words(newValue)
-    set_search_words(e)
+  async function searchHandler(e: WordFreqRequestType) {
+    var res:any = await GetWordFreq(e)
+    setWordFreqData(res)
+    // console.log("searchHandelr")
+    // console.log(res)
   }
 
   function GetFreqTable() {
-    const getOrNot = search_words.keywords != "" && search_words.starttime != "" && search_words.endtime != "";
+    const getOrNot = WordFreqData != undefined && WordFreqData != null;
     if (getOrNot === true) {
       console.log("Yes, we should build a freqtable")
       /* start_time and end_time shoule be defined here */
       return (
-        <FreqTable search_words={search_words} />
+        <FreqTable data={WordFreqData} />
       )
     }
     else {
@@ -49,7 +46,7 @@ function App() {
       <NavBar />
       <HeroComponent />
       <Container>
-        <SearchBox searchHandler={searchHandler} />
+        <SearchBox callback={searchHandler} />
         <GetFreqTable />
       </Container>
       <Footer />
@@ -58,3 +55,7 @@ function App() {
 }
 
 export default App;
+function setSearchKeyWords(arg0: { start_time: any; data?: [{ screen_name: string; data: []; }] | undefined; }) {
+  throw new Error('Function not implemented.');
+}
+

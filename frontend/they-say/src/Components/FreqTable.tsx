@@ -35,38 +35,28 @@ function createData(
     return { name, code };
 }
 
+/*todo: should not use any too*/
+type FreqTableRequest = {
+    callback?: Function,
+    data: any
+}
 
 
-export default function StickyHeadTable(props: any) {
+
+export default function FreqTable(props: FreqTableRequest) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [rowsData, setRowsData] = React.useState<{name: String, code: any}[]>([{ name: "Loading", code: "Loading" }]);
+    const [rowsData, setRowsData] = React.useState<{ name: String, code: any }[]>([{ name: "Loading", code: "Loading" }]);
 
     React.useEffect(() => {
-        const get_freq_data = {
-            "start_time": props.search_words.starttime,
-            "end_time": props.search_words.endtime,
-            "screen_name": props.search_words.keywords,
-            "choice": ["word"]
+        let w_array_format = []
+        let w_array = props.data.word;
+        for (var i = 0; i < w_array.length; i++) {
+            w_array_format.push(createData(w_array[i][0], w_array[i][1]))
         }
-
-        console.log("FreqTable Trying to connect to API: " + props.search_words.starttime)
-        axios.post('https://api.theysay.tech/wf',
-            get_freq_data)
-            .then(res => {
-                // console.log(res['data']['data'])
-                var w_array_format = []
-                let w_array = res.data.data.word;
-
-                for (var i = 0; i < w_array.length; i++) {
-                    w_array_format.push(createData(w_array[i][0], w_array[i][1]))
-                }
-                setRowsData(w_array_format)
-            })
-            .catch(err => console.log(err))
+        setRowsData(w_array_format)
+        console.log(props.data)
     }, [])
-
-
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
