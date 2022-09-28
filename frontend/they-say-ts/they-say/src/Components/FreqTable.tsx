@@ -42,15 +42,15 @@ export default function StickyHeadTable(props: any) {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rowsData, setRowsData] = React.useState<{name: String, code: any}[]>([{ name: "Loading", code: "Loading" }]);
 
-
     React.useEffect(() => {
         const get_freq_data = {
-            "start_time": "2011-09-22T14:26:14.000Z",
-            "end_time": "2022-10-23T14:26:14.980Z",
-            "screen_name": props.search_words,
+            "start_time": props.search_words.starttime,
+            "end_time": props.search_words.endtime,
+            "screen_name": props.search_words.keywords,
             "choice": ["word"]
         }
-        console.log("FreqTable Trying to connect to API: " + props.search_words)
+
+        console.log("FreqTable Trying to connect to API: " + props.search_words.starttime)
         axios.post('https://api.theysay.tech/wf',
             get_freq_data)
             .then(res => {
