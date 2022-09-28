@@ -9,6 +9,7 @@ import NavBar from './Components/NavBar'
 import Container from '@mui/material/Container';
 import { WordFreqRequestType } from './Funs/GetWordFreq';
 import { GetWordFreq } from './Funs/GetWordFreq';
+import WordCloud from "./Components/WordCloud"
 
 
 
@@ -19,7 +20,7 @@ function App() {
   const [WordFreqData, setWordFreqData] = useState<any>()
 
   async function searchHandler(e: WordFreqRequestType) {
-    var res:any = await GetWordFreq(e)
+    var res: any = await GetWordFreq(e)
     setWordFreqData(res)
     // console.log("searchHandelr")
     // console.log(res)
@@ -40,18 +41,35 @@ function App() {
     return <div>No Data Loaded</div>
   }
 
+  function GetWordCloud() {
+    const getOrNot = WordFreqData != undefined && WordFreqData != null;
+    if (getOrNot === true) {
+      console.log("Yes, we should build a word cloud")
+      /* start_time and end_time shoule be defined here */
+      return (
+        <WordCloud data={WordFreqData}/>
+      )
+    }
+    else {
+      console.log("No, we don't need word cloud")
+    }
+    return <div>No Data Loaded</div>
+  }
 
-  return (
-    <div className="App">
-      <NavBar />
-      <HeroComponent />
-      <Container>
-        <SearchBox callback={searchHandler} />
-        <GetFreqTable />
-      </Container>
-      <Footer />
-    </div>
-  );
+
+
+return (
+  <div className="App">
+    <NavBar />
+    <HeroComponent />
+    <Container>
+      <SearchBox callback={searchHandler} />
+      <GetFreqTable />
+      <GetWordCloud />
+    </Container>
+    <Footer />
+  </div>
+);
 }
 
 export default App;

@@ -89,7 +89,7 @@ export default function FreqTable(props: FreqTableRequest) {
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row: any) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
