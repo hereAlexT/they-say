@@ -18,7 +18,7 @@ type search_keywords_type = {
 
 
 function App() {
-  const [search_words, set_search_words] = useState<search_keywords_type>({ keywords: "", starttime: "", endtime: "" })
+  const [search_words, set_search_words] = useState<search_keywords_type>({ keywords: "", starttime: "2010-09-28T08:27:35.000Z", endtime: "2022-09-28T08:27:35.000Z" })
 
   /* todo: figure out the type of e */
   function searchHandler(e: any) {

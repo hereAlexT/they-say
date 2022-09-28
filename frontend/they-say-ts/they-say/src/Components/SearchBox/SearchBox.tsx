@@ -26,7 +26,7 @@ export default function FreeSolo(props: any) {
             "name": "Loading"
         }]
     )
-    const [search_keywords, set_search_keywords] = useState<search_keywords_type>({ keywords: "", starttime: "", endtime: "" })
+    const [search_keywords, set_search_keywords] = useState<search_keywords_type>({ keywords: "", starttime: "2010-09-28T08:27:35.000Z", endtime: "2022-09-28T08:27:35.000Z" })
 
     const get_search_auto_complete_data = { "arg": "get_search_auto_complete" }
 

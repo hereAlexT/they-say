@@ -16,14 +16,27 @@ type PropTypes = {
 }
 
 function MaterialUIPickers(props: PropTypes) {
-    const [value, setValue] = React.useState<Dayjs | null>(
-        dayjs('2014-08-18T21:11:54'),
-    );
 
-    const handleChange = (newValue: Dayjs | null) => {
+    const [value, setValue] = React.useState<Dayjs | null>();
+
+
+
+    React.useEffect(
+        () => {
+            console.log(props.title)
+            /*todo: need to get the current date when title is endtime*/
+            if (props.title == "Start Time") {
+                setValue(dayjs('2010-08-18T21:11:54'))
+            } else if (props.title == "End Time") {
+            }
+        }, []
+    )
+
+
+    function handleChange(newValue: Dayjs | null) {
         setValue(newValue);
-        props.callback(newValue?.toISOString())
-    };
+        props.callback(newValue?.toISOString());
+    }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
