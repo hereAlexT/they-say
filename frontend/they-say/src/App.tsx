@@ -10,7 +10,15 @@ import Container from '@mui/material/Container';
 import { WordFreqRequestType } from './Funs/GetWordFreq';
 import { GetWordFreq } from './Funs/GetWordFreq';
 import WordCloud from "./Components/WordCloud"
+import { createTheme } from '@mui/material';
 
+const myTheme = createTheme({
+  typography: {
+    h1: {
+      fontFamily: "Roboto"
+    },
+  }
+});
 
 
 
@@ -60,14 +68,14 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
+      {/* <NavBar /> */}
       <HeroComponent />
       <Container>
         <SearchBox callback={searchHandler} />
-        <Container maxWidth='md' sx={{mx:"auto", my:2}}>
+        <Container maxWidth='md' sx={{ mx: "auto", my: 2 }}>
           <GetFreqTable />
         </Container>
-        <Container maxWidth='md' sx={{mx:"auto", mt:3}}>
+        <Container maxWidth='md' sx={{ mx: "auto", mt: 3 }}>
           <GetWordCloud />
         </Container>
       </Container>

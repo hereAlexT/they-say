@@ -21,23 +21,51 @@ export default function Album() {
                 <Box
                     sx={{
                         bgcolor: 'background.paper',
-                        pt: 8,
+                        pt: 4,
                         pb: 6,
                     }}
                 >
                     <Container maxWidth="sm">
+         
                         <Typography
                             component="h1"
-                            variant="h2"
+                            variant="h5"
                             align="center"
-                            color="text.primary"
+                            color="text.secondary"
                             gutterBottom
+                            sx={{ pb: "10%" }}
                         >
-                            TheySay
+                            [No worries this is TheySay's undefined-logo]
                         </Typography>
-                        <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                            Get insights and idea from social medias.
+
+                        {/* change the img here to define logo */}
+                        {/* <Typography
+                            component="h1"
+                            variant="h5"
+                            align="center"
+                            color="text.secondary"
+                            gutterBottom
+                            sx={{ pb: "10%" }}
+        
+                        >
+                            <img src="/logo512.png" style={{width:"15%"}}/>
+                        </Typography> */}
+
+
+
+
+                        <Typography variant="h2" align="center" color="" display="inline" sx={{ fontWeight: 400 }}>
+                            Get&nbsp;
                         </Typography>
+                        <Typography variant="h2" align="center" color="SlateBlue" display="inline" sx={{ fontWeight: 900 }}>
+                            Insights
+                        </Typography>
+
+
+                        <Typography variant="h2" align="center" color="" sx={{ fontWeight: 400 }}>
+                            from social media.
+                        </Typography>
+
                     </Container>
                 </Box>
 
