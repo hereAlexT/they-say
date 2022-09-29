@@ -11,6 +11,7 @@ import { WordFreqRequestType } from './Funs/GetWordFreq';
 import { GetWordFreq } from './Funs/GetWordFreq';
 import WordCloud from "./Components/WordCloud"
 import { createTheme } from '@mui/material';
+import GithubCorner from 'react-github-corner';
 
 const myTheme = createTheme({
   typography: {
@@ -69,6 +70,7 @@ function App() {
   return (
     <div className="App">
       {/* <NavBar /> */}
+      <GithubCorner href="https://github.com/AlexTengT/they-say" bannerColor='SlateBlue'/>
       <HeroComponent />
       <Container>
         <SearchBox callback={searchHandler} />
