@@ -47,7 +47,7 @@ function App() {
       console.log("Yes, we should build a word cloud")
       /* start_time and end_time shoule be defined here */
       return (
-        <WordCloud data={WordFreqData}/>
+        <WordCloud data={WordFreqData} />
       )
     }
     else {
@@ -58,18 +58,22 @@ function App() {
 
 
 
-return (
-  <div className="App">
-    <NavBar />
-    <HeroComponent />
-    <Container>
-      <SearchBox callback={searchHandler} />
-      <GetFreqTable />
-      <GetWordCloud />
-    </Container>
-    <Footer />
-  </div>
-);
+  return (
+    <div className="App">
+      <NavBar />
+      <HeroComponent />
+      <Container>
+        <SearchBox callback={searchHandler} />
+        <Container maxWidth='md' sx={{mx:"auto", my:2}}>
+          <GetFreqTable />
+        </Container>
+        <Container maxWidth='md' sx={{mx:"auto", mt:3}}>
+          <GetWordCloud />
+        </Container>
+      </Container>
+      <Footer />
+    </div>
+  );
 }
 
 export default App;

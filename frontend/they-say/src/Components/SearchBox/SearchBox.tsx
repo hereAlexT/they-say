@@ -60,7 +60,7 @@ export default function FreeSolo(props: { callback: Function }) {
 
 
     return (
-        <Container maxWidth='md' sx={{ m: 2 }}>
+        <Container maxWidth='md' sx={{mx: "auto"}}>
 
             <Stack spacing={3}>
                 <Autocomplete
