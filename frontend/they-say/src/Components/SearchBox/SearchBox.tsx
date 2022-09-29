@@ -1,11 +1,8 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import MaterialUIPickers from './DataPicker';
 import Grid from '@mui/material/Unstable_Grid2';
-import Button from '@mui/material/Button';
+import { Container, Button, Autocomplete, TextField, Stack, Box } from '@mui/material';
 import { WordFreqRequestType } from '../..//Funs/GetWordFreq';
 
 
@@ -61,35 +58,40 @@ export default function FreeSolo(props: { callback: Function }) {
 
 
     return (
-        <div>
-            <Autocomplete
-                freeSolo
-                id="main-search-box"
-                disableClearable
-                options={search_box_content.map(res => res['username'])}
-                onChange={(e: any, v: string) => { setSearchKeyWords({ ...SearchKeyWords, screen_name: v }); }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        label="Search input"
-                        InputProps={{
-                            ...params.InputProps,
-                            type: 'search',
-                        }}
+        <Container maxWidth='md' sx ={{m:2}}>
+
+                <Stack spacing={3}>
+                    <Autocomplete
+                        freeSolo
+                        id="main-search-box"
+                        disableClearable
+                        options={search_box_content.map(res => res['username'])}
+                        onChange={(e: any, v: string) => { setSearchKeyWords({ ...SearchKeyWords, screen_name: v }); }}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Search input"
+                                InputProps={{
+                                    ...params.InputProps,
+                                    type: 'search',
+                                }}
+                            />
+                        )}
                     />
-                )}
-            />
-            <Grid container spacing={6}>
-                <Grid>
-                    <MaterialUIPickers title="Start Time" callback={startTimeHandler} />
-                </Grid>
-                <Grid>
-                    <MaterialUIPickers title="End Time" callback={endTimeHandler} />
-                </Grid>
-                <Grid>
-                    <Button variant="contained" onClick={searchButtonOnClick}>Search</Button>
-                </Grid>
-            </Grid>
-        </div>
+                    <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+
+                        <Stack direction="row">
+                            <MaterialUIPickers title="Start Time" callback={startTimeHandler} />
+                            <MaterialUIPickers title="Start Time" callback={startTimeHandler} />
+                        </Stack>
+
+
+                        <Button variant="contained" onClick={searchButtonOnClick}>Search</Button>
+
+
+                    </Stack>
+                </Stack>
+
+        </Container>
     );
 }
