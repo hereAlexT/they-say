@@ -82,12 +82,14 @@ export default function FreeSolo(props: { callback: Function }) {
                 />
                 <Stack direction="row" sx={{ justifyContent: "space-between" }}>
 
-                    <Stack direction="row">
+                    <Stack direction="row" spacing={2} alignItems="flex-end">
                         {/* <MaterialUIPickers title="Start Time" callback={startTimeHandler} />
                             <MaterialUIPickers title="Start Time" callback={startTimeHandler} /> */}
                         <DatePicker2 title="Start Time" callback={startTimeHandler} />
                         <DatePicker2 title="End Time" callback={endTimeHandler} />
-                        <Typography>(UTC+0)</Typography>
+                        <Box>
+                            <Typography sx={{color: "gray"}}>(UTC+0)</Typography>
+                        </Box>
                     </Stack>
 
 

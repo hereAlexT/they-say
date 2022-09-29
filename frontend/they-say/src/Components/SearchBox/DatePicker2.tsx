@@ -46,7 +46,7 @@ export default function DatePicker2(props: DatePicker2Types) {
         value={value}
         onChange={handleChange}
         onAccept = {handleChange}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => <TextField size="small" {...params} />}
 
       />
 
