@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import MaterialUIPickers from './DataPicker';
+import DatePicker2 from './DatePicker2';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Container, Button, Autocomplete, TextField, Stack, Box } from '@mui/material';
+import { Container, Button, Autocomplete, TextField, Stack, Box, Typography } from '@mui/material';
 import { WordFreqRequestType } from '../..//Funs/GetWordFreq';
 
 
@@ -50,47 +51,51 @@ export default function FreeSolo(props: { callback: Function }) {
         if (SearchKeyWords.screen_name == "") {
             /*todo promopt user to input keyword*/
             alert("Should fill the keywords!")
-            console.log("")
+            console.log(SearchKeyWords)
         } else {
+            console.log(SearchKeyWords)
             props.callback(SearchKeyWords)
         }
     }
 
 
     return (
-        <Container maxWidth='md' sx ={{m:2}}>
+        <Container maxWidth='md' sx={{ m: 2 }}>
 
-                <Stack spacing={3}>
-                    <Autocomplete
-                        freeSolo
-                        id="main-search-box"
-                        disableClearable
-                        options={search_box_content.map(res => res['username'])}
-                        onChange={(e: any, v: string) => { setSearchKeyWords({ ...SearchKeyWords, screen_name: v }); }}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Search input"
-                                InputProps={{
-                                    ...params.InputProps,
-                                    type: 'search',
-                                }}
-                            />
-                        )}
-                    />
-                    <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+            <Stack spacing={3}>
+                <Autocomplete
+                    freeSolo
+                    id="main-search-box"
+                    disableClearable
+                    options={search_box_content.map(res => res['username'])}
+                    onChange={(e: any, v: string) => { setSearchKeyWords({ ...SearchKeyWords, screen_name: v }); }}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Search input"
+                            InputProps={{
+                                ...params.InputProps,
+                                type: 'search',
+                            }}
+                        />
+                    )}
+                />
+                <Stack direction="row" sx={{ justifyContent: "space-between" }}>
 
-                        <Stack direction="row">
-                            <MaterialUIPickers title="Start Time" callback={startTimeHandler} />
-                            <MaterialUIPickers title="Start Time" callback={startTimeHandler} />
-                        </Stack>
-
-
-                        <Button variant="contained" onClick={searchButtonOnClick}>Search</Button>
-
-
+                    <Stack direction="row">
+                        {/* <MaterialUIPickers title="Start Time" callback={startTimeHandler} />
+                            <MaterialUIPickers title="Start Time" callback={startTimeHandler} /> */}
+                        <DatePicker2 title="Start Time" callback={startTimeHandler} />
+                        <DatePicker2 title="End Time" callback={endTimeHandler} />
+                        <Typography>(UTC+0)</Typography>
                     </Stack>
+
+
+                    <Button variant="contained" onClick={searchButtonOnClick}>Search</Button>
+
+
                 </Stack>
+            </Stack>
 
         </Container>
     );
