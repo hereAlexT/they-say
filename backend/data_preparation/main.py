@@ -80,10 +80,10 @@ def main(argv):
     elif argv[0] == "buildall":
         print("Updating Tweets")
         update_tweets(['', 'all'])
-        print("Updating User Profiles")
-        update_user_profiles([])
         print("Processing")
         begin_tweet_pre_processing(['', 'all'])
+        print("Updating User Profiles")
+        update_user_profiles([])
 
     elif argv[0] == 'update_tweets_batch':
         update_tweets_batch(argv)
