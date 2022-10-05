@@ -5,6 +5,7 @@ import DatePicker2 from './DatePicker2';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Container, Button, Autocomplete, TextField, Stack, Box, Typography } from '@mui/material';
 import { WordFreqRequestType } from '../..//Funs/GetWordFreq';
+import dayjs from 'dayjs';
 
 
 
@@ -22,7 +23,7 @@ export default function FreeSolo(props: { callback: Function }) {
     const [SearchKeyWords, setSearchKeyWords] = useState<WordFreqRequestType>({
         screen_name: "",
         start_time: "2010-09-28T08:27:35.000Z",
-        end_time: "2022-09-28T08:27:35.000Z",
+        end_time: dayjs().toISOString(),
         choice: ["word"]
     }
     )

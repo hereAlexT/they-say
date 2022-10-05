@@ -14,7 +14,7 @@ type DatePicker2Types = {
 
 
 export default function DatePicker2(props: DatePicker2Types) {
-  const [value, setValue] = React.useState<Dayjs | null>();
+  const [value, setValue] = React.useState<Dayjs | null | undefined>();
 
 
 
@@ -23,8 +23,9 @@ export default function DatePicker2(props: DatePicker2Types) {
       console.log(props.title)
       /*todo: need to get the current date when title is endtime*/
       if (props.title == "Start Time") {
-        setValue(dayjs('2010-08-18T21:11:54'))
+        setValue(dayjs('2010-09-28T21:11:54'))
       } else if (props.title == "End Time") {
+        setValue(dayjs())
       }
     }, []
   )
@@ -33,7 +34,7 @@ export default function DatePicker2(props: DatePicker2Types) {
   function handleChange(newValue: Dayjs | null) {
     if (newValue?.isValid() == true){
     setValue(newValue);
-    props.callback(newValue?.toISOString());
+    props.callback(value?.toISOString());
     }
   }
 
